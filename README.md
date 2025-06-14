@@ -27,6 +27,9 @@ A sophisticated legal chatbot powered by advanced AI technology, featuring memor
 ```bash
 streamlit run app.py
 ```
+## Try this using:
+https://legalaioryzed.streamlit.app/
+
 
 ## Deployment
 
