@@ -108,7 +108,7 @@ def get_legal_response(prompt, chat_history=None):
         # Add current prompt
         messages.append({"role": "user", "content": prompt})
         
-        # Make API request to Groq
+        # Make API request to Groq (updated endpoint)
         headers = {
             "Authorization": f"Bearer {GROQ_API_KEY}",
             "Content-Type": "application/json"
@@ -122,7 +122,7 @@ def get_legal_response(prompt, chat_history=None):
         }
         
         response = requests.post(
-            "https://api.groq.com/v1/chat/completions",
+            "https://api.groq.com/openai/v1/chat/completions",
             headers=headers,
             json=data
         )
