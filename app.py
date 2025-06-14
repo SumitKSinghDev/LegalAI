@@ -2,8 +2,8 @@ import streamlit as st
 import os
 import json
 from dotenv import load_dotenv
-import groq
 import requests
+import httpx
 
 # Load environment variables
 load_dotenv()
@@ -21,9 +21,6 @@ if "messages" not in st.session_state:
 
 # Set Groq API key
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "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")
-
-# Initialize Groq client
-client = groq.Groq(api_key=GROQ_API_KEY)
 
 def get_legal_response(prompt, chat_history=None):
     """Get response from Groq API with legal context."""
@@ -52,15 +49,31 @@ def get_legal_response(prompt, chat_history=None):
         # Add current prompt
         messages.append({"role": "user", "content": prompt})
         
-        # Get response from Groq
-        response = client.chat.completions.create(
-            model="deepseek-r1-distill-llama-70b",
-            messages=messages,
-            temperature=0.1,
-            max_tokens=2000
+        # Make API request to Groq
+        headers = {
+            "Authorization": f"Bearer {GROQ_API_KEY}",
+            "Content-Type": "application/json"
+        }
+        
+        data = {
+            "model": "deepseek-r1-distill-llama-70b",
+            "messages": messages,
+            "temperature": 0.1,
+            "max_tokens": 2000
+        }
+        
+        response = requests.post(
+            "https://api.groq.com/v1/chat/completions",
+            headers=headers,
+            json=data
         )
         
-        return response.choices[0].message.content
+        if response.status_code == 200:
+            return response.json()["choices"][0]["message"]["content"]
+        else:
+            st.error(f"API Error: {response.status_code} - {response.text}")
+            return None
+            
     except Exception as e:
         st.error(f"Error getting response: {str(e)}")
         return None
