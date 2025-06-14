@@ -1,8 +1,10 @@
 streamlit==1.32.0
+python-dotenv==1.0.1
 agno==0.1.0
 groq==0.4.2
-duckduckgo-search==8.0.4
-python-dotenv==1.0.1
+duckduckgo-search==4.4.3
+dataclasses>=0.6
+typing-extensions>=4.5.0
 requests==2.31.0
 urllib3==2.1.0
 certifi==2024.2.2

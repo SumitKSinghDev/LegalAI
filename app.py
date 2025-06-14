@@ -20,7 +20,10 @@ if "messages" not in st.session_state:
 # Set Groq API key
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "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")
 
+# Import required packages with error handling
 try:
+    import dataclasses
+    from typing_extensions import TypedDict
     from agno.agent import Agent
     from agno.tools.duckduckgo import DuckDuckGoTools
     from agno.models.groq import Groq
