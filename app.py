@@ -1,4 +1,13 @@
 import streamlit as st
+
+# Set page config - must be the first Streamlit command
+st.set_page_config(
+    page_title="LegalAI - Professional Legal Assistant",
+    page_icon="⚖️",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
 import os
 import json
 from dotenv import load_dotenv
@@ -64,14 +73,6 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-
-# Set page config
-st.set_page_config(
-    page_title="LegalAI - Professional Legal Assistant",
-    page_icon="⚖️",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
 
 # Initialize session state for chat history
 if "messages" not in st.session_state:
